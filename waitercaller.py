@@ -7,6 +7,7 @@ from flask import render_template
 from flask.ext.login import LoginManager
 from flask.ext.login import login_required
 from flask.ext.login import login_user
+from flask.ext.login import logout_user
 
 from mockdbhelper import MockDBHelper as DBHelper
 from user import User
@@ -40,6 +41,12 @@ def login():
         login_user(user)
         return redirect(url_for('account'))
     return home()
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/account')
