@@ -18,6 +18,7 @@ from forms import CreateTableForm
 from mockdbhelper import MockDBHelper as DBHelper
 from user import User
 from passwordhelper import PasswordHelper
+from bitlyhelper import BitlyHelper
 
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -30,6 +31,7 @@ app = Flask(__name__)
 login_manager = LoginManager(app)
 DB = DBHelper()
 PH = PasswordHelper()
+BH = BitlyHelper()
 
 app.secret_key = os.environ['SECRET_KEY']
 
@@ -90,7 +92,7 @@ def account():
 def account_createtable():
     tablename = request.form.get('tablenumber')
     tableid = DB.add_table(tablename, current_user.get_id())
-    new_url = config.base_url + 'newrequest/' + tableid
+    new_url = BH.shorten_url(config.base_url + "newrequest/" + tableid)
     DB.update_table(tableid, new_url)
     return redirect(url_for('account'))
 
