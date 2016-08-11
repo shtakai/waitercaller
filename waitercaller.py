@@ -82,7 +82,7 @@ def dashboard():
 @login_required
 def account():
     tables = DB.get_tables(current_user.get_id())
-    return render_template('account.html', talbes=tables)
+    return render_template("account.html", createtableform=CreateTableForm(), tables=tables)
 
 
 @app.route('/account/createtable', methods=['POST'])
