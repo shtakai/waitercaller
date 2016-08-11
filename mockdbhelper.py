@@ -11,5 +11,5 @@ class MockDBHelper:
             return user[0]
         return None
 
-        def add_user(self, email, salt, hashed):
-            MOCK_USERS.append({"email": email, "salt": salt, "hashed": hashed})
+    def add_user(self, email, salt, hashed):
+        MOCK_USERS.append({"email": email, "salt": salt, "hashed": hashed})
