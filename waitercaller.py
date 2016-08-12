@@ -104,11 +104,14 @@ def account():
 @app.route('/account/createtable', methods=['POST'])
 @login_required
 def account_createtable():
-    tablename = request.form.get('tablenumber')
-    tableid = DB.add_table(tablename, current_user.get_id())
-    new_url = BH.shorten_url(config.base_url + "newrequest/" + tableid)
-    DB.update_table(tableid, new_url)
-    return redirect(url_for('account'))
+    form = CreateTableForm(request.form)
+    if form.validate():
+        tableid = DB.add_table(form.tablenumber.data, current_user.get_id())
+        new_url = BH.shorten_url(config.base_url + "newrequest/" + tableid)
+        DB.update_table(tableid, new_url)
+        return redirect(url_for('account'))
+
+    return render_template('account.html', createtableform=form, tables=DB.get_tables(current_user.get_id()))
 
 
 @app.route('/account/deletetable')
