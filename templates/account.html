@@ -19,7 +19,7 @@
                         <ul class="errors">
                             {% for error in createtableform.tablenumber.errors %}
                                 <li>{{ error }}</li>
-                            {% end %}
+                            {% endfor %}
                         </ul>
                     {% endif %}
                     {{ createtableform.csrf_token }}
