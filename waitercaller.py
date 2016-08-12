@@ -30,6 +30,12 @@ load_dotenv(dotenv_path)
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
+
+if config.test:
+    from mockdbhelper import MockDBHelper as DBHelper
+else:
+    from dbhelper import DBHelper
+
 DB = DBHelper()
 PH = PasswordHelper()
 BH = BitlyHelper()
